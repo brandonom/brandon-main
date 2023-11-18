@@ -1,0 +1,40 @@
+﻿<h1>Here is the dashboard</h1>
+
+<h2>Create Posts</h2>
+
+<label>Title</label>
+<input placeholder="title" id="title"></input>
+<label>Text</label>
+<input placeholder="text" id="text"></input>
+<button id="createBtn">Create</button>
+
+
+<h2>Here are my posts</h2>
+{{#each posts}}
+        <div class="post">
+            <h3 class="text-center">{{title}}</h3>
+            <div class="row justify-between">
+                <p>{{text}}</p>               
+            </div>
+        </div>
+{{/each}}
+
+<script>
+    const createBtn = document.getElementById('createBtn');
+    createBtn.onclick = async function(){
+        const title = document.getElementById('title').value;
+        const text = document.getElementById('text').value;
+        console.log(title, text)
+        const res = await fetch('/api/post',{
+            method:'POST',
+            body: JSON.stringify({title, text}),
+            headers:{'Content-Type': 'application/json'}
+        })
+        if(res.ok){
+            document.location.replace('/');
+        }
+    }
+
+</script>
+
+{{!-- //add the posts/comments after you get  the posts/comments routes working --}}
